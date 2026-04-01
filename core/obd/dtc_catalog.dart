@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-/// Расширенный справочник DTC из assets/dtc_extended.json (генерализованные описания OBD-II).
 class DtcCatalog {
   DtcCatalog._();
   static final DtcCatalog instance = DtcCatalog._();
@@ -22,7 +21,6 @@ class DtcCatalog {
         _codes[(m['c'] as String).toUpperCase()] = m['d'] as String;
       }
     } catch (_) {
-      // остаётся только встроенный минимум в dtc_hints
     }
     _loaded = true;
   }
