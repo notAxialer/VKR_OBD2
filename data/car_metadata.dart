@@ -1,10 +1,7 @@
-// lib/core/data/car_metadata.dart
-
-/// Метаданные поколения автомобиля
 class CarGenerationMeta {
   final String name;
   final int yearStart;
-  final int? yearEnd; // null = актуальное поколение
+  final int? yearEnd; 
 
   const CarGenerationMeta({
     required this.name,
@@ -19,7 +16,6 @@ class CarGenerationMeta {
   };
 }
 
-/// Метаданные модели автомобиля
 class CarModelMeta {
   final String name;
   final List<CarGenerationMeta> generations;
@@ -30,7 +26,6 @@ class CarModelMeta {
   });
 }
 
-/// Метаданные марки автомобиля
 class CarBrandMeta {
   final String name;
   final String? logo;
@@ -43,10 +38,7 @@ class CarBrandMeta {
   });
 }
 
-/// 🚗 Все доступные марки автомобилей
-/// Добавляйте новые марки в конец списка
 const allCarBrands = <CarBrandMeta>[
-  // ==================== РОССИЙСКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Lada',
     models: [
@@ -167,7 +159,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== ЯПОНСКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Toyota',
     models: [
@@ -508,7 +499,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== КОРЕЙСКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Hyundai',
     models: [
@@ -601,7 +591,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== НЕМЕЦКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Volkswagen',
     models: [
@@ -892,7 +881,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== ФРАНЦУЗСКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Renault',
     models: [
@@ -982,7 +970,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== АМЕРИКАНСКИЕ БРЕНДЫ ====================
   CarBrandMeta(
     name: 'Ford',
     models: [
@@ -1093,7 +1080,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== ПРЕМИУМ И ДРУГИЕ ====================
   CarBrandMeta(
     name: 'Volvo',
     models: [
@@ -1265,7 +1251,6 @@ const allCarBrands = <CarBrandMeta>[
     ],
   ),
 
-  // ==================== КИТАЙСКИЕ БРЕНДЫ (популярные в РФ) ====================
   CarBrandMeta(
     name: 'Chery',
     models: [
