@@ -4,7 +4,6 @@ import '../../data/models/autodiag_models.dart';
 
 class EngineRecommendation {
   final String text;
-  /// 1..3 (1=инфо, 2=предупреждение, 3=критично)
   final int severity;
 
   const EngineRecommendation({required this.text, required this.severity});
@@ -21,7 +20,6 @@ class RecommendationEngine {
   }) {
     final out = <EngineRecommendation>[];
 
-    // 1) DTC: если есть DTC без готовой рекомендации — всё равно дать “следующий шаг”
     for (final d in dtcs) {
       final rec = dtcRecommendationRu(d.code);
       if (rec == null || rec.trim().isEmpty) {
@@ -40,7 +38,6 @@ class RecommendationEngine {
       }
     }
 
-    // 2) Общие правила по нормальному диапазону из метаданных PID
     for (final e in pidSnapshot.entries) {
       final pid = e.key.toUpperCase().padLeft(2, '0');
       final v = e.value;
@@ -61,7 +58,6 @@ class RecommendationEngine {
       ));
     }
 
-    // 3) Специфичные эвристики по ключевым PID (более “человеческие” рекомендации)
     final coolant = _pid(pidSnapshot, '05');
     if (coolant != null) {
       if (coolant >= 110) {
@@ -138,7 +134,6 @@ class RecommendationEngine {
       ));
     }
 
-    // 4) Прогноз по трендам истории сессий
     final coolantHistory = pidHistory['05'];
     if (coolant != null && coolantHistory != null && coolantHistory.length >= 3) {
       final avg = _avg(coolantHistory);
@@ -183,7 +178,6 @@ class RecommendationEngine {
       }
     }
 
-    // Дедуп и сортировка
     final uniq = <String, EngineRecommendation>{};
     for (final r in out) {
       final key = r.text.trim();
@@ -208,12 +202,10 @@ class RecommendationEngine {
   }
 
   static int _severityFromDistance(double v, double? min, double? max) {
-    // Простая шкала: сильный выход за пределы => критично.
     double dist = 0;
     if (min != null && v < min) dist = (min - v).abs();
     if (max != null && v > max) dist = (v - max).abs();
 
-    // Нормируем “на глаз” через ширину диапазона, если она известна.
     double? span;
     if (min != null && max != null && max > min) span = max - min;
     final ratio = span == null ? null : (dist / span);
