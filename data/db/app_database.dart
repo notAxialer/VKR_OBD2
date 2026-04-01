@@ -31,7 +31,7 @@ class AppDatabase {
         await _createTables(db);
         await _seedPidParameters(db);
         await _seedDtcReference(db);
-        await _seedCarData(db); // 👈 теперь данные тянутся из car_metadata
+        await _seedCarData(db); // Данные берутся из car_metadata.
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
@@ -56,7 +56,6 @@ class AppDatabase {
   }
 
   Future<void> _createTables(Database db) async {
-    // ... [ваши существующие CREATE TABLE без изменений] ...
     // Основные таблицы
     await db.execute('''
 CREATE TABLE car (
@@ -318,7 +317,7 @@ CREATE TABLE IF NOT EXISTS car_generations (
     }
   }
 
-  /// 🚗 Сидирование данных об автомобилях из car_metadata.dart
+  /// Сидирование данных об автомобилях из car_metadata.dart
   Future<void> _seedCarData(Database db) async {
     // Проверяем, есть ли уже данные — чтобы не дублировать при перезапуске
     final count = Sqflite.firstIntValue(
